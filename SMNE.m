@@ -17,6 +17,8 @@ for q = qA
     
 end
 
+EM = [EM,E];
+
 diff = abs(E(:,1)-E(:,2));
 [mindist1,minInd1] = min(diff);
 diff(minInd1)=1;

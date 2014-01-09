@@ -215,4 +215,7 @@ pip-log.txt
 .mr.developer.cfg
 
 #JPEGS
-.jpg
+*.jpg
+*.eps
+*.mat
+simdata/*

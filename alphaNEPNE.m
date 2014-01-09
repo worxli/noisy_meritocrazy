@@ -1,9 +1,8 @@
-function [ proba] = alphamain( arg, be, betaend )
+function [ k ] = alphaNEPNE( arg, be, betaend )
 
-    %beta vector
+   %beta vector
     beta = [0,100];
 
-    EA=[];
     EC=[];
     for b = beta;
 
@@ -51,49 +50,20 @@ function [ proba] = alphamain( arg, be, betaend )
             Eci = [Eci; arg.budget + sum(arg.payoff(:,1)), sum(arg.payoff(:,2))];
 
         end
-
-        SMNE_alpha
-        EA = [EA,E];
+        
+        EC = [EC,Eci];
 
     end
 
 	a = 1-be/betaend;
-   
-    ex11 = a*EA(:,1)+(1-a)*EA(:,3);
-    ex22 = a*EA(:,2)+(1-a)*EA(:,4);
     
+    %%%%%%%%%%%%%%%%%%%%%%
     
-    diff = abs(ex11-ex22);
-    [mindist1,minInd1] = min(diff);
-    diff(minInd1)=1;
-    [mindist2,minInd2] = min(diff);
-
-    mprob=zeros(1,4);
-
-    if minInd2<minInd1
-        t = minInd2;
-        minInd2 = minInd1;
-        minInd1 = t;
-        t = mindist2;
-        mindist2 = mindist1;
-        mindist1 = t;
-    end
-
-    if mindist1 < 0.01
-        mprob(1,1:2) = [mindist1, qA(minInd1)];
-    else
-        mprob(1,1) = mindist1;
-    end
-
-    if mindist2 < 0.01
-        mprob(1,3:4)=[mindist2, qA(minInd2)];
-    else
-        mprob(1,3) = mindist2;
-    end
-
-    proba = mprob;
+    clear('Eci');
+    Eci(:,1)=a*EC(:,1)+(1-a)*EC(:,3);
+    Eci(:,2)=a*EC(:,2)+(1-a)*EC(:,4);
     
+    NEPNE;
     
     
 end
-

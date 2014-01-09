@@ -4,7 +4,7 @@ clear all;
 %global vars
 
 %agents
-arg.n = 8; 
+arg.n = 12; 
 
 %budget
 arg.budget = 1; 
@@ -16,17 +16,17 @@ arg.g = 4;
 arg.rs = 1.6/arg.g;
 
 %beta vector
-beta = 0:0.1:4;
+beta = 2:0.5:6;
     
 probv=[];
 proba=[];
 K=[];
-Ex=[];
-M=[];
-Ecis=[];
+KK=[];
+EM = [];
+
 for b = beta;
 
-    arg.b=b;
+    arg.b=b
 
     %i gives nothing
     arg.n_po = ones(4,1)*arg.budget+arg.rs*[3:-1:0]'*arg.budget;
@@ -70,19 +70,38 @@ for b = beta;
         Eci = [Eci; arg.budget + sum(arg.payoff(:,1)), sum(arg.payoff(:,2))];
 
     end
-
-    NEPNE
-    SMNE
     
-    proba = [proba; alphamain(arg, b)];
+    %SMNE
+    proba = [proba; alphamain(arg, b, beta(end))];
+    
+    
+    %NEPNE
+    %K = [K;k];
+    KK = [KK,alphaNEPNE(arg, b, beta(end))];
     
 end
 
-plot(beta, probv(:,1), beta, probv(:,2), beta, probv(:,3), beta, probv(:,4), beta, K./arg.n, beta, proba(:,1), beta, proba(:,2), beta, proba(:,3), beta, proba(:,4) );
+%plot(beta, probv(:,1), beta, probv(:,2), beta, probv(:,3), beta, probv(:,4), beta, K./arg.n, beta, proba(:,1), beta, proba(:,2), beta, proba(:,3), beta, proba(:,4) );
+plot( beta,  proba(:,2), beta, proba(:,4), beta, KK/arg.n);
+%plot( beta, probv(:,2), beta, probv(:,4) );
+%plot(beta, K);
 axis([beta(1) beta(end) 0 1]);
+xlabel('\beta');
+ylabel('Efficiency');
+
+legend('alpha1', 'alpha2', 'alpha K', 'logit \beta 1', 'logit \beta 2', 'logit \beta K'); 
 
 
+%{
+qA = 0:0.01:1;
+mesh(beta,qA,EM(:,1:2:end),'EdgeColor','Black')
+hold on;
+mesh(beta,qA,EM(:,2:2:end),'EdgeColor','Black')
+alpha(.8)
+xlabel('\beta');
+ylabel('Probability');
+zlabel('Expected value');
 
-
+%}
 
     

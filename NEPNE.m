@@ -19,12 +19,10 @@ for a = arg.n-1:-1:2
    else
        
        if Eci(a,1)>=Eci(a+1,2)&&Eci(a,2)>=Eci(a-1,1)
-           k=a;
+           k=a-1;
            break;
        end
        
    end
     
 end
-
-K = [K;k];
