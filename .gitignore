@@ -218,4 +218,7 @@ pip-log.txt
 *.jpg
 *.eps
 *.mat
+*.fig
 simdata/*
+destabDATA/*
+destabFIG/*

@@ -25,10 +25,13 @@ for b = beta
 
     end
     
+    giving';
+    
     data = [data,giving];
     
 end
 
+figure;
 boxplot(data,beta);
 
 %{

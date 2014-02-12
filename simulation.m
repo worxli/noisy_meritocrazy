@@ -14,18 +14,15 @@ arg.rs = 1.6/arg.g;
 arg.vector = zeros(arg.n,1);
 
 %beta value
-arg.b = 10;
-beta = 0:10;
-
-%simulation steps
-maxiter = 10;
+beta = 2.3:0.1:10;
 
 %epsilon
-arg.e = 0.01;
+arg.e = 0.01; %[0.01:0.02,0.05];
 
 for b = beta
     
     arg.b = b;
+    arg.vector = zeros(arg.n,1);
 
     %random seed for brutus
     seed=cputime*1000;
@@ -54,7 +51,7 @@ for b = beta
     
     jobindex=str2double(getenv('LSB_JOBINDEX'));
 
-    save(['beta-' num2str(b) '-run' num2str(jobindex)]);
+    save(['beta-' num2str(b) '-run' num2str(jobindex) '.mat']);
     
 end
 
