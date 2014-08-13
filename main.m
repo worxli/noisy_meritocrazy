@@ -16,7 +16,7 @@ arg.g = 4;
 arg.rs = 1.6/arg.g;
 
 %beta vector
-beta = 0:1:10;
+beta = 0:0.1:10;
     
 probv=[];
 proba=[];
@@ -71,26 +71,28 @@ for b = beta;
 
     end
     
-    %SMNE
+    SMNE
     %proba = [proba; alphamain(arg, b, beta(end))];
     
     
-    NEPNE
-    K = [K;k];
+    %NEPNE
+    %K = [K;k];
     %KK = [KK,alphaNEPNE(arg, b, beta(end))];
     
 end
 
+%{
 %plot(beta, probv(:,1), beta, probv(:,2), beta, probv(:,3), beta, probv(:,4), beta, K./arg.n, beta, proba(:,1), beta, proba(:,2), beta, proba(:,3), beta, proba(:,4) );
 %plot( beta,  proba(:,2), beta, proba(:,4), beta, KK/arg.n);
-%plot( beta, probv(:,2), beta, probv(:,4) );
-plot(beta, K);
+plot( beta, probv(:,2), beta, probv(:,4) );
+%plot(beta, K);
 axis([beta(1) beta(end) 0 1]);
 xlabel('\beta');
 ylabel('Efficiency');
 
 legend('alpha1', 'alpha2', 'alpha K', 'logit \beta 1', 'logit \beta 2', 'logit \beta K'); 
 
+%}
 
 %{
 qA = 0:0.01:1;
@@ -103,5 +105,7 @@ ylabel('Probability');
 zlabel('Expected value');
 
 %}
+
+save(['mainDATA.mat']);
 
     

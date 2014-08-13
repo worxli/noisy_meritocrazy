@@ -10,14 +10,15 @@ function [ payoff ] = vectorPayoff( arg )
         curr_vec = permutations(i,:)';
        
         %calculate division factor
-        p = factorial(sum(arg.vector))*factorial(arg.n-sum(arg.vector));
-    
+        p = factorial(sum(arg.vector)/20)*factorial(arg.n-sum(arg.vector)/20);
+        
         %calculate probability to get ranked for each place
         for j=1:arg.n
             sum_j = exp(arg.b*curr_vec(j:end));
             p = p*exp(arg.b*curr_vec(j))/sum(sum_j);
         end
         arg.prob(i,1) = p;
+        
 
     end
     
